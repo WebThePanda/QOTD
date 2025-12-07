@@ -18,9 +18,9 @@ except Exception as e:
     raise RuntimeError(f"Failed to fetch quote: {e}")
 
 start = datetime.date(2025, 12, 7)
-today = datetime.date.today()
+today = datetime.date(2025, 12, 8)
 
-day = (today - start).days
+day = (today - start).days + 1
 
 # Send to Discord
 payload = {"content": f"# QOTD #{day}\n{quote}"}
