@@ -4,7 +4,7 @@ on:
   schedule:
     # 9 AM UTC = 10 AM Norway (CET winter)
     # 8 AM UTC = 10 AM Norway (CEST summer)
-    - cron: "0 17 * * *"
+    - cron: "40 15 * * *"
 
 jobs:
   post-quote:
