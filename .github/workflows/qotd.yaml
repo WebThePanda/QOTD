@@ -1,0 +1,27 @@
+name: Daily Quote Poster
+
+on:
+  schedule:
+    # 9 AM UTC = 10 AM Norway (CET winter)
+    # 8 AM UTC = 10 AM Norway (CEST summer)
+    - cron: "0 17 * * *"
+
+jobs:
+  post-quote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run quote script
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python quote.py
