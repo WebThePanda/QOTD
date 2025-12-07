@@ -25,4 +25,4 @@ jobs:
       - name: Run quote script
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        run: python quote.py
+        run: python quotes.py
