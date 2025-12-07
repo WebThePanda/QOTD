@@ -18,7 +18,7 @@ except Exception as e:
     raise RuntimeError(f"Failed to fetch quote: {e}")
 
 start = datetime.date(2025, 12, 7)
-today = datetime.date(2025, 12, 8)
+today = datetime.date.today()
 
 day = (today - start).days + 1
 
