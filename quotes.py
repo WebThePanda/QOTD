@@ -17,7 +17,7 @@ except Exception as e:
     raise RuntimeError(f"Failed to fetch quote: {e}")
 
 # Send to Discord
-payload = {"content": quote}
+payload = {"content": f"# QOTD\n{quote}"}
 result = requests.post(WEBHOOK_URL, json=payload)
 
 if result.status_code == 204:
