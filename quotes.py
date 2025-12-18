@@ -23,7 +23,7 @@ today = datetime.date.today()
 day = (today - start).days + 1
 
 # Send to Discord
-payload = {"content": f"# QOTD #{day}\n{quote}"}
+payload = {"content": f"# QOTD #{day}\n{quote}\n- Made py <@502141502038999041>"}
 result = requests.post(WEBHOOK_URL, json=payload)
 
 if result.status_code == 204:
