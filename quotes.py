@@ -2,28 +2,46 @@ import requests
 import os
 import datetime
 
-# Get webhook URL from environment variable
+
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
 if not WEBHOOK_URL:
     raise ValueError("Webhook URL not found. Did you set DISCORD_WEBHOOK_URL as a GitHub secret?")
 
-# Fetch a random quote (using ZenQuotes API)
-try:
-    response = requests.get("https://zenquotes.io/api/random", timeout=10)
-    response.raise_for_status()
-    data = response.json()
-    quote = f"{data[0]['q']} — {data[0]['a']}"
-except Exception as e:
-    raise RuntimeError(f"Failed to fetch quote: {e}")
+
+
+response = requests.get("https://zenquotes.io/api/random", timeout=10)
+response.raise_for_status()
+data = response.json()[0]
+
 
 start = datetime.date(2025, 12, 7)
 today = datetime.date.today()
 
 day = (today - start).days + 1
 
-# Send to Discord
-payload = {"content": f"# QOTD #{day}\n{quote}\n\n- Made by <@502141502038999041>"}
+quote = data["q"]
+author = data["a"]
+
+
+payload = {
+    "username": "QOTD",
+    "embeds": [
+        {
+            "title": f"Quote of the Day - Day {day}",
+            "description": quote,
+            "color": 13209599,
+            "fields": [
+                {"name": "Author", "value": f"{author}", "inline": True},
+                {"name": "Today's Date", "value": today.strftime("%B %d, %Y"), "inline": True}
+            ],
+            "footer": {
+                "text": "Powered by ZenQuotes API — Made by @webthepanda"
+            }
+        }
+    ]
+}
+
 result = requests.post(WEBHOOK_URL, json=payload)
 
 if result.status_code == 204:
