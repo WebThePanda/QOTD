@@ -15,7 +15,7 @@ def quotePoster():
     response.raise_for_status()
     data = response.json()[0]
     
-    start = datetime.date(2025, 12, 7)
+    start = datetime.date(2026, 3, 17)
     today = datetime.date.today()
 
     day = (today - start).days + 1
